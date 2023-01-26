@@ -1,0 +1,147 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
+  Add
+</button>
+
+<button type="button" class="btn btn-danger" (click)="deleteAll()">
+  Delete All
+</button>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Role</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">Salary</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employes">
+      <td>{{employee.firstname}}</td>
+      <td>{{employee.lastname}}</td>
+      <td>{{employee.poste}}</td>
+      <td>{{employee.startDate}}</td>
+      <td>{{employee.salary}}</td>
+      <td> <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit"
+          (click)="toEdit(employee.id)">
+          Edit
+        </button> <button type="button" class="btn btn-danger" (click)="deleteId(employee.id)">Delete</button> </td>
+
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Employee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="form" (ngSubmit)="submit()">
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> First name</label>
+            <input type="text" class="form-control w-50" formControlName="firstname">
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Last name</label>
+            <input type="text" class="form-control w-50" formControlName="lastname">
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Role</label>
+            <select class="form-select" formControlName="poste" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="CEO">CEO</option>
+              <option value="SoftwareEngineer">Software engineer</option>
+              <option value="SeniorJSDeveloper">Senior JavaScript Developper</option>
+              <option value="IntegrationSpecialist">Integration Specialist</option>
+            </select>
+
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Start Date</label>
+            <input type="date" class="form-control" formControlName="startDate">
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Salary</label>
+            <input type="number" class="form-control" formControlName="salary">
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Employee</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" [formGroup]="form" (ngSubmit)="edit()">
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> First name</label>
+            <input type="text" class="form-control w-50" formControlName="firstname" value="{{employeEdit.firstname}}">
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Last name</label>
+            <input type="text" class="form-control w-50" formControlName="lastname" value="{{employeEdit.lastname}}">
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Role</label>
+            <select class="form-select" formControlName="poste" aria-label="Default select example">
+              <option value="CEO">CEO</option>
+              <option value="SoftwareEngineer">Software engineer</option>
+              <option value="SeniorJSDeveloper">Senior JavaScript Developper</option>
+              <option value="IntegrationSpecialist">Integration Specialist</option>
+            </select>
+
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Start Date</label>
+            <input type="date" class="form-control" formControlName="startDate" value="{{employeEdit.startDate}}">
+          </div>
+          <div class="d-flex justify-content-around mb-3 ">
+            <label for="" class="form-label"> Salary</label>
+            <input type="number" class="form-control" formControlName="salary" value="{{employeEdit.salary}}">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title 2</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
