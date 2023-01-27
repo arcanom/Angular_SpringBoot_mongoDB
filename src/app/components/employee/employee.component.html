@@ -1,0 +1,153 @@
+<div class="d-flex flex-column gap-3">
+
+  <div class="d-flex justify-content-between align-items-baseline">
+    <div class="d-flex gap-1">
+      <button type="button" class="btn btn-primary rounded-1" data-bs-toggle="modal" data-bs-target="#add">Add</button>
+      <button type="button" class="btn btn-warning rounded-1" disabled>Edit</button>
+      <button type="button" class="btn btn-danger rounded-1" (click)="deleteAll()">Delete All</button>
+    </div>
+
+    <div class="d-flex align-items-baseline gap-1">
+      <label for="searchInput">Search :</label>
+      <input type="text" id="searchInput" placeholder="Laurent" class="rounded-1 px-2 py-1" style="border-width: 1px;">
+    </div>
+  </div>
+
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th scope="col">Firstname</th>
+        <th scope="col">Lastname</th>
+        <th scope="col">Poste</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{employee.firstname}}</td>
+        <td>{{employee.lastname}}</td>
+        <td>{{employee.poste}}</td>
+        <td>{{employee.startDate}}</td>
+        <td>{{employee.salary}}</td>
+        <td>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit"
+            (click)="toEdit(employee.id)">Edit</button>
+          <button type="button" class="btn btn-danger" (click)="deleteId(employee.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+  <!-- Modal -->
+  <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Employee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form action="" [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Firstname : </label>
+              <input type="text" class="form-control w-75" formControlName="firstname">
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Lastname : </label>
+              <input type="text" class="form-control w-75" formControlName="lastname">
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Poste : </label>
+              <select class="form-select" formControlName="poste" aria-label="Default select example">
+                <option selected>Open this select menu</option>
+                <option value="CEO">CEO</option>
+                <option value="SoftwareEngineer">Software engineer</option>
+                <option value="SeniorJSDeveloper">Senior JavaScript Developper</option>
+                <option value="IntegrationSpecialist">Integration Specialist</option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Start Date : </label>
+              <input type="date" class="form-control" formControlName="startDate">
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Salary : </label>
+              <input type="number" class="form-control" formControlName="salary">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Employee</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" [formGroup]="form" (ngSubmit)="edit()">
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Firstname : </label>
+              <input type="text" class="form-control w-50" formControlName="firstname"
+                value="{{employeeEdit.firstname}}">
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Lastname : </label>
+              <input type="text" class="form-control w-50" formControlName="lastname" value="{{employeeEdit.lastname}}">
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Poste : </label>
+              <select class="form-select" formControlName="poste" aria-label="Default select example">
+                <option value="CEO">CEO</option>
+                <option value="SoftwareEngineer">Software engineer</option>
+                <option value="SeniorJSDeveloper">Senior JavaScript Developper</option>
+                <option value="IntegrationSpecialist">Integration Specialist</option>
+              </select>
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Start Date : </label>
+              <input type="date" class="form-control" formControlName="startDate" value="{{employeeEdit.startDate}}">
+            </div>
+
+            <div class="d-flex justify-content-around mb-3 ">
+              <label for="" class="form-label">Salary : </label>
+              <input type="number" class="form-control" formControlName="salary" value="{{employeeEdit.salary}}">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

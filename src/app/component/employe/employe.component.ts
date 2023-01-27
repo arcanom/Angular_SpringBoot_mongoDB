@@ -17,7 +17,7 @@ employeEdit: Employe= {
   firstname: "",
   lastname:"",
   poste:"",
-  startDate:"",
+  startDate:new Date(),
   salary: 0
 }
 employeEdit2 : Employe
@@ -30,6 +30,7 @@ form: FormGroup
 
 getEmployes(){
   this.http.getEmployes().subscribe(x => {
+
     this.employes =  x
     console.log(this.employes)
   })
@@ -37,6 +38,7 @@ getEmployes(){
 
 submit(){
   this.employeCreated =  this.form.value;
+  console.log(this.form.value.poste)
   console.log(this.employeCreated)
   this.http.createEmploye(this.employeCreated);
 }
@@ -54,7 +56,7 @@ edit(){
     this.employeEdit.poste =  this.employeEdit2.poste
   }
 
-  if(this.employeEdit2.startDate != "" && this.employeEdit2.startDate != this.employeEdit.startDate){
+  if(this.employeEdit2.startDate != new Date() && this.employeEdit2.startDate != this.employeEdit.startDate){
     this.employeEdit.startDate = this.employeEdit2.startDate
   }
   if(this.employeEdit2.salary != 0 && this.employeEdit2.salary != this.employeEdit.salary){

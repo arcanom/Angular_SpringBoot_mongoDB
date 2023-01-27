@@ -2,6 +2,6 @@ export interface EmployeDTO {
   firstname:string
   lastname:string
   poste:string,
-  startDate:string,
+  startDate:Date,
   salary:number
 }
